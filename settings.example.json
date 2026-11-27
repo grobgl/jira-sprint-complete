@@ -1,0 +1,12 @@
+{
+  "site": "https://your-domain.atlassian.net",
+  "login": "",
+  "project": "PROJ",
+  "board": {"id": 1, "name": "Your Scrum Board", "filter": 10000},
+  "points_field": "customfield_10001",
+  "points_name": "Story Points",
+  "sprint_field": "customfield_10002",
+  "epic_field": "customfield_10003",
+  "done_status": "Done",
+  "progress_status": "In Progress"
+}
