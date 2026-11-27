@@ -12,7 +12,7 @@ On a new machine, after installing those dependencies:
 
 ```bash
 mkdir -p ~/tools ~/.local/bin
-git clone https://github.com/YOUR_USERNAME/jira-sprint-complete.git ~/tools/jira-sprint-complete
+git clone https://github.com/grobgl/jira-sprint-complete.git ~/tools/jira-sprint-complete
 cd ~/tools/jira-sprint-complete
 ln -s "$PWD/sprint_complete.py" ~/.local/bin/jira-sprint-complete
 cp settings.example.json settings.json
