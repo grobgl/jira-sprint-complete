@@ -2,7 +2,7 @@
 
 An interactive Python 3.10+ script using the **community [jira-cli](https://github.com/ankitpokhrel/jira-cli)** for every Jira request. No Python packages are required.
 
-Configured for **Your Scrum Board**, board **1**, saved filter **10000**, on `your-domain.atlassian.net`. Story Points is `customfield_10001`; Sprint is `customfield_10002`. Board/filter/field IDs were checked through the existing MCP connection during development. Runtime access uses the CLI alone.
+Configure your Jira site, board, saved filter and custom fields in `settings.json`. Runtime access uses the CLI alone.
 
 ## Install
 
@@ -12,13 +12,13 @@ On a new machine, after installing those dependencies:
 
 ```bash
 mkdir -p ~/tools ~/.local/bin
-git clone https://github.com/grobgl/jira-sprint-complete.git ~/tools/jira-sprint-complete
+git clone https://github.com/YOUR_USERNAME/jira-sprint-complete.git ~/tools/jira-sprint-complete
 cd ~/tools/jira-sprint-complete
 ln -s "$PWD/sprint_complete.py" ~/.local/bin/jira-sprint-complete
 cp settings.example.json settings.json
 ```
 
-Ensure `~/.local/bin` is on your `PATH`. Edit `settings.json` for your Jira site, project, board, saved filter, custom field IDs and statuses. The checked-in example contains this board's defaults; local settings, credentials and session journals are ignored by Git.
+Ensure `~/.local/bin` is on your `PATH`. Edit `settings.json` for your Jira site, project, board, saved filter, custom field IDs and statuses. The checked-in example shows the settings structure; replace its values with your own. Local settings, credentials and session journals are ignored by Git.
 
 ## Run
 
@@ -61,7 +61,7 @@ The wizard is tested with community `jira` CLI **v1.7.0**.
 ## Interaction
 
 1. Select the closing → next sprint pair in a **single step**. For one active and one future sprint, press Enter once to accept the displayed pair. When there are multiple options, select a pair from the combined list. The first pair uses the earliest-created future sprint (lowest ID). Explicit `--sprint` / `--next-sprint` arguments narrow the list. The CLI exposes at most the latest 50 sprints per state.
-2. Confirm the displayed scope. **Only tickets assigned to your authenticated Jira user** are included, using the board's saved filter and the **In Progress status category**, including review/testing statuses. Ownership is rechecked before mutations; reassigned originals and prepared carryovers stop the wizard. `--mine` remains accepted for compatibility but is no longer necessary. There is no all-assignees mode.
+2. Confirm the displayed scope. **Only tickets assigned to your authenticated Jira user** are included, using the board's saved filter and the **In Progress status category**, including review/testing statuses. Ownership is rechecked before mutations; reassigned originals and prepared carryovers stop the wizard. There is no all-assignees mode.
 3. Review each ticket: **Done / Carry / Skip / View / Quit**. Enter chooses Done. No decision is applied until its points and final confirmation have been answered.
 4. Done defaults spent points to the current estimate. Carry requires an explicit spent estimate, then suggests `max(initial − spent, 0)` for remaining work. You can independently re-estimate the remainder. Missing estimates always require input. Zero and decimals (up to three decimal places) are accepted.
 5. Inspect the final applied totals and any remaining in-progress tickets. The script **leaves the sprint open**.
@@ -75,9 +75,6 @@ Summary, description, issue type, priority, components and labels are checked ag
 ```bash
 # Explicit sprint selection; IDs are still validated against board/state.
 jira-sprint-complete --sprint 12345 --next-sprint 12346
-
-# Optional compatibility flag; every run already includes only your tickets.
-jira-sprint-complete --mine
 
 # Alternate wizard settings (JSON; see settings.example.json).
 jira-sprint-complete --settings /path/to/settings.json
@@ -114,4 +111,4 @@ cd ~/tools/jira-sprint-complete
 python3 -m unittest -v
 ```
 
-Tests use the actual installed `jira` binary against a local HTTP Jira fixture. They exercise cloning, point splitting, metadata restoration, decimal points, search pagination, no-write dry runs, concurrent edits, and recovery from responses lost after mutations. They never connect to live Jira. Live authentication and this site's workflow permissions need the first authenticated dry run and first confirmed ticket to verify.
+Tests use the actual installed `jira` binary against a local HTTP Jira fixture. They exercise cloning, point splitting, metadata restoration, decimal points, search pagination, no-write dry runs, concurrent edits, and recovery from responses lost after mutations. They never connect to live Jira. Live authentication and your Jira site's workflow permissions need the first authenticated dry run and first confirmed ticket to verify.

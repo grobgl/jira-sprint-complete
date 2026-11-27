@@ -483,7 +483,6 @@ def main():
     parser.add_argument('--jira', default='jira', help='Community jira-cli executable')
     parser.add_argument('--sprint', type=int, help='Closing active sprint ID')
     parser.add_argument('--next-sprint', type=int, help='Destination future sprint ID')
-    parser.add_argument('--mine', action='store_true', help='Compatibility option; only your tickets are always included')
     parser.add_argument('--done-transition', help='Workflow transition name if different from Done')
     parser.add_argument('--progress-transition', help='Workflow transition name if different from In Progress')
     parser.add_argument('--dry-run', action='store_true', help='Read Jira and prompt; never mutate Jira or session state')
